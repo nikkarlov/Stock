@@ -13,8 +13,8 @@ public:
 			}
 		}
 	}
-	void FormationTruck(const Importer& importer, std::vector<Shelf>& shelfs,
-		int& money, std::vector<Truck>& trucks_, int day) {
+	std::vector<Truck> FormationTruck(const Importer& importer, std::vector<Shelf>& shelfs,
+		int& money, std::vector<Truck>& trucks, int day) {
 		std::vector<Truck> newTrucks_;
 		for (int i = 0; i < shelfs.size(); i++) {
 			if (shelfs[i].preliminaryCount_ < shelfs[i].maxCount_ / 3) {
@@ -24,12 +24,9 @@ public:
 				newTrucks_.push_back({ pac, int(rnd() % 5) });
 			}
 		}
-		for (int i = 0; i < newTrucks_.size(); i++) {
-			money -= newTrucks_[i].pack_.count_ * importer.cost_[newTrucks_[i].pack_.prod_.setNumber()];
-			trucks_.push_back(newTrucks_[i]);
-		}
+		return newTrucks_;
 	}
-	void FormationOrders(std::vector<Request>& req, std::vector<Shelf>& shelfs, int& money) {
+	std::vector<Request> FormationOrders(std::vector<Request>& req, std::vector<Shelf>& shelfs, int& money) {
 		std::vector<Request> newReq;
 		std::vector<Shelf> copyShelfs(shelfs.size());
 		copy(shelfs.begin(), shelfs.end(), copyShelfs.begin());
@@ -50,21 +47,6 @@ public:
 				newReq.push_back({ numProd, req[i].count_ - countProd, req[i].prod_ });
 			}
 		}
-		for (int i = 0; i < newReq.size(); i++) {
-			int numProd = newReq[i].prod_.setNumber();
-			int countProd = newReq[i].count_;
-			for (int y = 0; y < shelfs[numProd].pack_.size() && countProd > 0; y++) {
-				if (countProd >= shelfs[numProd].pack_[y].count_) {
-					countProd -= shelfs[numProd].pack_[y].count_;
-					money += shelfs[numProd].pack_[y].cost_ * shelfs[numProd].pack_[y].count_;
-					shelfs[numProd].pack_.erase(shelfs[numProd].pack_.begin() + y);
-				}
-				else {
-					money += countProd * shelfs[numProd].pack_[y].count_;
-					shelfs[numProd].pack_[y].count_ -= countProd;
-					countProd = 0;
-				}
-			}
-		}
+		return newReq;
 	}
 };
