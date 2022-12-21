@@ -33,6 +33,10 @@ class Shelf {
 		return pack_;
 	}
 
+	int GetCount() const {
+		return count_;
+	}
+
 	int GetMaxCount() const {
 		return maxCount_;
 	}

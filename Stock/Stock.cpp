@@ -25,12 +25,21 @@ void Stock::AcceptOrders(std::vector<Request> newReq) {
 				countProd -= shelfs_[numProd].GetPackages()[y].GetCount();
 				money_ += shelfs_[numProd].GetPackages()[y].GetCost() * shelfs_[numProd].GetPackages()[y].GetCount();
 				std::vector<Package> packages = shelfs_[numProd].GetPackages();
+				if (shelfs_[numProd].GetCount() < packages[y].GetCount()) {
+					int p = 0;
+				}
+				shelfs_[numProd].SetCount(shelfs_[numProd].GetCount() - packages[y].GetCount());
+				shelfs_[numProd].SetPreliminaryCount(shelfs_[numProd].GetPreliminaryCount() - packages[y].GetCount());
 				packages.erase(packages.begin() + y);
 				shelfs_[numProd].SetPackages(packages);
 			}
 			else {
 				money_ += countProd * shelfs_[numProd].GetPackages()[y].GetCount();
-				shelfs_[numProd].GetPackages()[y].SetCount(shelfs_[numProd].GetPackages()[y].GetCount() - countProd);
+				shelfs_[numProd].SetCount(shelfs_[numProd].GetCount() - countProd);
+				shelfs_[numProd].SetPreliminaryCount(shelfs_[numProd].GetPreliminaryCount() - countProd);
+				std::vector<Package> packages = shelfs_[numProd].GetPackages();
+				packages[y].SetCount(packages[y].GetCount() - countProd);
+				shelfs_[numProd].SetPackages(packages);
 				countProd = 0;
 			}
 		}
