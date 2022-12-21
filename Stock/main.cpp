@@ -1,9 +1,12 @@
-#include "Generator.h"
 #include <iostream>
+
+#include "Generator.h"
+
 int main() {
-	gener();
-	for (int i = 0; i < N; i++) {
-		stock.Day();
+	std::srand(std::time(nullptr));
+	generator::run();
+	for (int i = 0; i < generator::N; i++) {
+		generator::stock.NextDay();
 	}
-	std::cout << stock.money_;
+	std::cout << generator::stock.GetMoney();
 }
