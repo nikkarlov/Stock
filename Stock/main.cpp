@@ -13,13 +13,16 @@ int main() {
 	try {
 		std::srand(std::time(nullptr));
 		generator::run();
-		GUI gui(1280, 720, "test");
+		GUI gui;
 
 		while (gui.isOpened()) {
-			if (gui.pressed()) {
+			gui.eventProcessing();
+			if (gui.nextDay()) {
 				generator::stock.NextDay();
 			}
 			gui.Draw(generator::stock);
+
+			generator::stock.NextDay();
 		}
 	}
 	catch (...) {

@@ -1,6 +1,8 @@
 #include "Stock.h"
 
 void Stock::NextDay() {
+	//if (day_ > 30) return;
+
 	CheckShelfs();
 	CheckTrucks();
 	manager_.Discount(importer_, shelfs_, day_);
