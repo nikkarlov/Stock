@@ -25,9 +25,6 @@ void Stock::AcceptOrders(std::vector<Request> newReq) {
 				countProd -= shelfs_[numProd].GetPackages()[y].GetCount();
 				money_ += shelfs_[numProd].GetPackages()[y].GetCost() * shelfs_[numProd].GetPackages()[y].GetCount();
 				std::vector<Package> packages = shelfs_[numProd].GetPackages();
-				if (shelfs_[numProd].GetCount() < packages[y].GetCount()) {
-					int p = 0;
-				}
 				shelfs_[numProd].SetCount(shelfs_[numProd].GetCount() - packages[y].GetCount());
 				shelfs_[numProd].SetPreliminaryCount(shelfs_[numProd].GetPreliminaryCount() - packages[y].GetCount());
 				packages.erase(packages.begin() + y);

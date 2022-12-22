@@ -4,9 +4,7 @@
 #include "Stock.h"
 
 namespace generator {
-	int N = std::rand() % 24 + 7;
-	int M = std::rand() % 7 + 3;
-	int K = std::rand() % 8 + 10;
+	int N, M, K;
 	std::vector<Product> products, farmProducts, supmarketProducts;
 	Stock stock;
 
