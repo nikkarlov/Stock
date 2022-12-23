@@ -16,6 +16,10 @@ public:
 		return req_;
 	}
 
+	std::vector<Request> GetReqManager() {
+		return reqManager_;
+	}
+
 	int GetMoney() const {
 		return money_;
 	}
@@ -39,6 +43,7 @@ public:
 
 private:
 	std::vector<Request> req_;
+	std::vector<Request> reqManager_;
 	Manager manager_;
 	int money_ = 0, day_ = 1;
 };
