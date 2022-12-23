@@ -7,7 +7,7 @@ void Stock::NextDay() {
 	CheckTrucks();
 	manager_.Discount(importer_, shelfs_, day_);
 	req_ = FormationOrders();
-	AcceptOrders(req_);
+	AcceptOrders(manager_.FormationOrders(req_, shelfs_));
 	AcceptTrucks(manager_.FormationTruck(importer_, shelfs_, day_));
 	day_++;
 }
