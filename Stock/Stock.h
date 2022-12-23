@@ -12,7 +12,7 @@ public:
 	std::vector<Truck> trucks_;
 	Importer importer_;
 
-	std::vector<Request> GetReq() {
+	std::vector<Request> GetRequests() const {
 		return req_;
 	}
 

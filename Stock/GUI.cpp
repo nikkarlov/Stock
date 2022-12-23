@@ -30,23 +30,32 @@ void GUI::Draw(const Stock& stock) const {
 
     border.setSize(sf::Vector2f(320, 1));
 
+    sf::Text text;
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color(0xE0E0E0FF));
+    text.setFont(*font_);
+
+    // Requests
+    for (uint8_t i = 0; i < stock.GetRequests().size(); ++i) {
+        Request req = stock.GetRequests()[i];
+
+        text.setString(std::to_string(req.GetProduct().GetNumber()));
+        text.setPosition(12, 128 + 32 * i);
+        window_->draw(text);
+
+        border.setPosition(0, 128 + 32 * (i + 1));
+        window_->draw(border);
+    }
+
+    // Our products
     int16_t shift = 0;
     for (uint8_t i = 0; i < stock.shelfs_.size(); ++i) {
         for (uint8_t j = 0; j < stock.shelfs_[i].GetPackages().size(); ++j) {
             Package curPackage = stock.shelfs_[i].GetPackages()[j];
             Product curProduct = curPackage.GetProduct();
 
-            /*if (curProduct.GetNumber() < 0) {
-                --shift;
-                continue;
-            }*/
-
-            sf::Text text;
-            text.setCharacterSize(24);
-            text.setFillColor(sf::Color(0xE0E0E0FF));
             text.setString(std::to_string(curProduct.GetNumber()) + ": " + std::to_string(curPackage.GetCost()) + "$ - " + ConvertDate(curPackage.GetManifuctureDate() + curProduct.GetExpirationDate()));
             text.setPosition(320 + 12, 128 + 32 * (shift + j));
-            text.setFont(*font_);
             window_->draw(text);
         }
         shift += stock.shelfs_[i].GetPackages().size();
@@ -54,6 +63,33 @@ void GUI::Draw(const Stock& stock) const {
         window_->draw(border);
     }
 
+    // Trucks
+    for (uint8_t i = 0; i < stock.trucks_.size(); ++i) {
+        Truck truck = stock.trucks_[i];
+        Package package = truck.GetPackage();
+        Product product = package.GetProduct();
+
+        text.setString(std::to_string(product.GetNumber()) + ": " + ConvertDate(stock.GetDay() + truck.GetTime()) + " (in " + std::to_string(truck.GetTime() + 1) + " days)");
+        text.setPosition(640 + 12, 128 + 32 * i);
+        window_->draw(text);
+
+        border.setPosition(640, 128 + 32 * (i + 1));
+        window_->draw(border);
+    }
+    
+    // Next order
+    for (uint8_t i = 0; i < stock.GetRequests().size(); ++i) {
+        Request req = stock.GetRequests()[i];
+
+        text.setString(std::to_string(req.GetProduct().GetNumber()));
+        text.setPosition(12, 128 + 32 * i);
+        window_->draw(text);
+
+        border.setPosition(0, 128 + 32 * (i + 1));
+        window_->draw(border);
+    }
+
+    // Titles
     border.setFillColor(sf::Color(0xE0E0E0FF));
     border.setSize(sf::Vector2f(2, 720));
     border.setPosition(320, 64);
@@ -69,7 +105,6 @@ void GUI::Draw(const Stock& stock) const {
     border.setPosition(0, 64);
     window_->draw(border);
 
-    sf::Text text;
     text.setCharacterSize(32);  
     text.setFillColor(sf::Color(0xE0E0E0FF));
     text.setFont(*font_);
