@@ -23,22 +23,16 @@ void GUI::Draw(const Stock& stock) const {
 
     // Borders for beaty
     sf::RectangleShape border;
-    border.setFillColor(sf::Color(0xE0E0E0FF));
-    border.setSize(sf::Vector2f(2, 720));
-    border.setPosition(426, 64);
+    border.setSize(sf::Vector2f(1280, 1));
+    border.setFillColor(sf::Color(0x808080FF));
+    border.setPosition(0, 128);
     window_->draw(border);
 
-    border.setPosition(852, 64);
-    window_->draw(border);  
-
-    border.setSize(sf::Vector2f(1278, 2));
-    border.setPosition(0, 64);
-    window_->draw(border);
-
+    border.setSize(sf::Vector2f(320, 1));
 
     int16_t shift = 0;
     for (uint8_t i = 0; i < stock.shelfs_.size(); ++i) {
-        for (uint8_t j = 0; j < stock.shelfs_[i].GetCount(); ++j) {
+        for (uint8_t j = 0; j < stock.shelfs_[i].GetPackages().size(); ++j) {
             Package curPackage = stock.shelfs_[i].GetPackages()[j];
             Product curProduct = curPackage.GetProduct();
 
@@ -50,13 +44,30 @@ void GUI::Draw(const Stock& stock) const {
             sf::Text text;
             text.setCharacterSize(24);
             text.setFillColor(sf::Color(0xE0E0E0FF));
-            text.setString("ID: " + std::to_string(curProduct.GetNumber()) + " - until " + ConvertDate(curPackage.GetManifuctureDate() + curProduct.GetExpirationDate()));
-            text.setPosition(12, 128 + 32 * (shift + j));
+            text.setString(std::to_string(curProduct.GetNumber()) + ": " + std::to_string(curPackage.GetCost()) + "$ - " + ConvertDate(curPackage.GetManifuctureDate() + curProduct.GetExpirationDate()));
+            text.setPosition(320 + 12, 128 + 32 * (shift + j));
             text.setFont(*font_);
             window_->draw(text);
         }
-        shift += stock.shelfs_[i].GetCount();
+        shift += stock.shelfs_[i].GetPackages().size();
+        border.setPosition(320, 128 + 32 * shift);
+        window_->draw(border);
     }
+
+    border.setFillColor(sf::Color(0xE0E0E0FF));
+    border.setSize(sf::Vector2f(2, 720));
+    border.setPosition(320, 64);
+    window_->draw(border);
+
+    border.setPosition(640, 64);
+    window_->draw(border);
+
+    border.setPosition(960, 64);
+    window_->draw(border);
+
+    border.setSize(sf::Vector2f(1280, 2));
+    border.setPosition(0, 64);
+    window_->draw(border);
 
     sf::Text text;
     text.setCharacterSize(32);  
@@ -67,24 +78,28 @@ void GUI::Draw(const Stock& stock) const {
     window_->draw(text);
 
     text.setString("Profit: " + std::to_string(stock.GetMoney()));
-    text.setPosition(426 + 16, 10);
+    text.setPosition(640 + 16, 10);
     window_->draw(text);
 
-    text.setString("Our products");
+    text.setString("Requests");
     text.setPosition(16, 80);
     window_->draw(text);
 
+    text.setString("Our products");
+    text.setPosition(320 + 16, 80);
+    window_->draw(text);
+
     text.setString("Active trucks");
-    text.setPosition(426 + 16, 80);
+    text.setPosition(640 + 16, 80);
     window_->draw(text);
 
     text.setString("Next order");
-    text.setPosition(852 + 16, 80);
+    text.setPosition(960 + 16, 80);
     window_->draw(text);
 
     text.setString("Next day");
     text.setStyle(text.Underlined);
-    text.setPosition(852 + 16, 10);
+    text.setPosition(1100 + 16, 10);
     window_->draw(text);
 
     window_->display();
@@ -100,7 +115,7 @@ std::string GUI::ConvertDate(uint16_t date) const {
 
     if (date % 30 + 1 < 10) day = "0" + day;
     if (date / 30 % 12 + 1 < 10) month = "0" + month;
-    if (date / 30 / 12 + 1 < 10) year = "0" + year;
+    if (date / 30 / 12 % 100 + 1 < 10) year = "0" + year;
 
     return day + "." + month + "." + year;
 }

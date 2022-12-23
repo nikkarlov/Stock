@@ -7,7 +7,7 @@ class GUI
 {
 public:
     GUI() {
-        window_ = new sf::RenderWindow(sf::VideoMode(1278, 720), "Stock Simutator 2022", sf::Style::Close);
+        window_ = new sf::RenderWindow(sf::VideoMode(1280, 720), "Stock Simutator 2022", sf::Style::Close);
         if (!font_->loadFromFile("resourses/Consolas.ttf")) {
             throw;
         }
