@@ -12,6 +12,9 @@ public:
 	std::vector<Truck> trucks_;
 	Importer importer_;
 
+	std::vector<Request> GetReq() {
+		return req_;
+	}
 
 	int GetMoney() const {
 		return money_;
@@ -35,6 +38,7 @@ public:
 	std::vector<Request> FormationOrders();
 
 private:
+	std::vector<Request> req_;
 	Manager manager_;
 	int money_ = 0, day_ = 1;
 };

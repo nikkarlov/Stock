@@ -3,7 +3,8 @@
 void Manager::Discount(const Importer& importer, std::vector<Shelf>& shelfs, int day) {
 	for (int i = 0; i < shelfs.size(); i++) {
 		for (int y = 0; y < shelfs[i].GetPackages().size(); y++) {
-			if (day - shelfs[i].GetPackages()[y].GetManifuctureDate() >= shelfs[i].GetPackages()[y].GetProduct().GetExpirationDate() * 0.5) {
+			if (day - shelfs[i].GetPackages()[y].GetManifuctureDate() >=
+				shelfs[i].GetPackages()[y].GetProduct().GetExpirationDate() * 0.5) {
 				shelfs[i].GetPackages()[y].SetCost(importer.cost[i]);
 			}
 		}
