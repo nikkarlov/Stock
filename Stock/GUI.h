@@ -7,21 +7,20 @@ class GUI
 {
 public:
     GUI() {
-        window_ = new sf::RenderWindow(sf::VideoMode(1280, 720), "Stock Simutator 2022", sf::Style::Close);
+        window_ = new sf::RenderWindow(sf::VideoMode(1278, 720), "Stock Simutator 2022", sf::Style::Close);
         if (!font_->loadFromFile("resourses/Consolas.ttf")) {
             throw;
         }
-        window_->setFramerateLimit(5);
     }
 
 
     bool isOpened() const;
 
-    bool nextDay() const;
+    bool nextDay();
 
     void eventProcessing();
 
-    void Draw(const Stock&) const;
+    void Draw(const Stock&);
 
 private:
     sf::RenderWindow* window_;
@@ -30,7 +29,8 @@ private:
     enum ClickState {NotClicked, Clicked, Analysed};
     ClickState state_;
 
-    uint32_t lastMoney = 0;
+    int lastMoney_ = 0;
+    int savedMoney_ = 0;
 
     std::string ConvertDate(uint16_t) const;
 };

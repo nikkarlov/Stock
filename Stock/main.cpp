@@ -21,8 +21,6 @@ int main() {
 				generator::stock.NextDay();
 			}
 			gui.Draw(generator::stock);
-
-			generator::stock.NextDay();
 		}
 	}
 	catch (...) {
