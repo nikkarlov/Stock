@@ -19,7 +19,7 @@ std::vector<Truck> Manager::FormationTruck(const Importer& importer, std::vector
 			int cost = importer.cost[i] * 2;
 			Package pac(cost, day, shelfs[i].GetMaxCount() / 3 - shelfs[i].GetPreliminaryCount(), shelfs[i].GetProduct());
 			shelfs[i].SetPreliminaryCount(shelfs[i].GetMaxCount() / 3);
-			newTrucks_.push_back(Truck(pac, int(std::rand() % 5)));
+			newTrucks_.push_back(Truck(pac, int(std::rand() % 5 + 1)));
 		}
 	}
 	return newTrucks_;

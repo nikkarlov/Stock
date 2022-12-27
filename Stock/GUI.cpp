@@ -84,7 +84,7 @@ void GUI::Draw(const Stock& stock) {
         Package package = truck.GetPackage();
         Product product = package.GetProduct();
 
-        text.setString(std::to_string(product.GetNumber()) + ": " + ConvertDate(stock.GetDay() + truck.GetTime()) + " - in " + std::to_string(truck.GetTime() + 1) + " day(s)");
+        text.setString(std::to_string(product.GetNumber()) + ": " + ConvertDate(stock.GetDay() + truck.GetTime()) + " - in " + std::to_string(truck.GetTime()) + " day(s)");
         text.setPosition(852 + 12, 128 + 32 * i);
         window_->draw(text);
 
