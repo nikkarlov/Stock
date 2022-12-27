@@ -28,7 +28,7 @@ namespace generator {
 		for (int i = 0; i < K; i++) {
 			stock.importer_.cost[i] = std::rand() % 100 + 10;
 		}
-		for (int i = 0; i < K; i++) {
+		for (int i = 0; i < M; i++) {
 			if (std::rand() % 2) {
 				stock.shops_.push_back(Shop(i, 1, farmProducts));
 			}
