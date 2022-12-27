@@ -16,7 +16,7 @@ public:
 		return req_;
 	}
 
-	std::vector<Request> GetReqManager() {
+	std::vector<Request> GetManagerRequests() const {
 		return reqManager_;
 	}
 
@@ -31,9 +31,9 @@ public:
 
 	void NextDay();
 
-	void AcceptTrucks(std::vector<Truck> newTrucks_);
+	void AcceptTrucks(const std::vector<Truck>& newTrucks_);
 
-	void AcceptOrders(std::vector<Request> newReq);
+	void AcceptOrders(const std::vector<Request>& newReq);
 
 	void CheckTrucks();
 

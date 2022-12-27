@@ -11,7 +11,7 @@ public:
         if (!font_->loadFromFile("resourses/Consolas.ttf")) {
             throw;
         }
-        window_->setFramerateLimit(1);
+        window_->setFramerateLimit(5);
     }
 
 
@@ -29,6 +29,8 @@ private:
 
     enum ClickState {NotClicked, Clicked, Analysed};
     ClickState state_;
+
+    uint32_t lastMoney = 0;
 
     std::string ConvertDate(uint16_t) const;
 };

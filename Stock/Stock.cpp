@@ -11,14 +11,14 @@ void Stock::NextDay() {
 	day_++;
 }
 
-void Stock::AcceptTrucks(std::vector<Truck> newTrucks_) {
+void Stock::AcceptTrucks(const std::vector<Truck>& newTrucks_) {
 	for (int i = 0; i < newTrucks_.size(); i++) {
 		money_ -= newTrucks_[i].GetPackage().GetCount() * importer_.cost[newTrucks_[i].GetPackage().GetProduct().GetNumber()];
 		trucks_.push_back(newTrucks_[i]);
 	}
 }
 
-void Stock::AcceptOrders(std::vector<Request> newReq) {
+void Stock::AcceptOrders(const std::vector<Request>& newReq) {
 	for (int i = 0; i < newReq.size(); i++) {
 		int numProd = newReq[i].GetProduct().GetNumber();
 		int countProd = newReq[i].GetCount();
@@ -67,5 +67,5 @@ std::vector<Request> Stock::FormationOrders() {
 	for (int i = 0; i < shops_.size(); i++) {
 		req.push_back(shops_[i].CreateRequest());
 	}
-	return manager_.FormationOrders(req, shelfs_);
+	return req;
 }

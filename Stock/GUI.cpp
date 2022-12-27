@@ -76,18 +76,6 @@ void GUI::Draw(const Stock& stock) const {
         border.setPosition(640, 128 + 32 * (i + 1));
         window_->draw(border);
     }
-    
-    // Next order
-    for (uint8_t i = 0; i < stock.GetRequests().size(); ++i) {
-        Request req = stock.GetRequests()[i];
-
-        text.setString(std::to_string(req.GetProduct().GetNumber()));
-        text.setPosition(12, 128 + 32 * i);
-        window_->draw(text);
-
-        border.setPosition(0, 128 + 32 * (i + 1));
-        window_->draw(border);
-    }
 
     // Titles
     border.setFillColor(sf::Color(0xE0E0E0FF));
