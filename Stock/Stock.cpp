@@ -46,7 +46,7 @@ void Stock::AcceptOrders(const std::vector<Request>& newReq) {
 }
 
 void Stock::CheckTrucks() {
-	for (int i = 0; i < trucks_.size(); i++) {
+	for (int i = trucks_.size() - 1; i >= 0; i--) {
 		trucks_[i].Drive();
 		if (trucks_[i].GetTime() <= 0) {
 			int numProd = trucks_[i].GetPackage().GetProduct().GetNumber();

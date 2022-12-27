@@ -1,7 +1,7 @@
 #include "Shelf.h"
 
 void Shelf::CheckDate(const int day) {
-	for (int i = 0; i < pack_.size(); i++) {
+	for (int i = pack_.size() - 1; i >= 0; i--) {
 		if (day - pack_[i].GetManifuctureDate() >= pack_[i].GetProduct().GetExpirationDate()) {
 			count_ -= pack_[i].GetCount();
 			preliminaryCount_ -= pack_[i].GetCount();
